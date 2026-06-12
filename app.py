@@ -191,32 +191,25 @@ else:
 # PASSENGER SUMMARY
 # ==================================================
 
-st.markdown("### Passenger Summary")
+# ==================================================
+# PASSENGER SUMMARY
+# ==================================================
 
-summary_df = pd.DataFrame({
-    "Feature": [
-        "Passenger Class",
-        "Gender",
-        "Age",
-        "Fare",
-        "Family Size",
-        "Embarked"
-    ],
-    "Value": [
-        pclass,
-        sex,
-        age,
-        fare,
-        family_size,
-        embarked
-    ]
-})
+st.markdown("### 📋 Passenger Summary")
 
-st.dataframe(
-    summary_df,
-    use_container_width=True,
-    hide_index=True
-)
+c1, c2, c3 = st.columns(3)
+
+with c1:
+    st.metric("Passenger Class", pclass)
+    st.metric("Gender", sex.title())
+
+with c2:
+    st.metric("Age", age)
+    st.metric("Fare", f"${fare:.2f}")
+
+with c3:
+    st.metric("Family Size", family_size)
+    st.metric("Embarked", embarked)
 
 # ==================================================
 # CREATE INPUT DATAFRAME
