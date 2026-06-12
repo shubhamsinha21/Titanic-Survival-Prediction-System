@@ -233,16 +233,6 @@ streamlit run app.py
 
 ---
 
-## 🔮 Future Improvements
-
-- SHAP Explainability
-- Docker Containerization
-- CI/CD Pipeline
-- Cloud Deployment Automation
-- Advanced Feature Engineering
-
----
-
 ## 👨‍💻 Author
 
 **Shubham Sinha | AI Engineer**
