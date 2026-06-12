@@ -35,7 +35,7 @@ Build a machine learning model capable of predicting whether a Titanic passenger
 
 ### Streamlit User Interface
 
-> Add your application screenshot below
+> Added application screenshot below
 
 ![Application UI](images/ui.png)
 
