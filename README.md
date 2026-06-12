@@ -1,40 +1,49 @@
-# Titanic Survival Prediction System
+# 🚢 Titanic Survival Prediction System
+
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![Status](https://img.shields.io/badge/Status-Completed-success)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 An end-to-end Machine Learning project that predicts whether a passenger would survive the Titanic disaster based on passenger information.
 
 ---
 
-## Project Overview
+## 📌 Project Overview
 
-This project uses the Titanic dataset to build a machine learning model capable of predicting passenger survival.
+This project demonstrates the complete Machine Learning lifecycle, from data exploration to deployment.
 
-The project covers the complete machine learning workflow including:
-
-- Data Cleaning
-- Exploratory Data Analysis (EDA)
-- Feature Engineering
-- Data Preprocessing
-- Model Training
-- Model Evaluation
-- Cross Validation
-- Hyperparameter Tuning
-- Model Deployment using Streamlit
+The system predicts passenger survival using demographic and travel-related information and provides real-time predictions through an interactive Streamlit application.
 
 ---
 
-## Problem Statement
+## 🎯 Problem Statement
 
-Predict whether a passenger would survive the Titanic disaster using passenger demographic and travel information.
+Build a machine learning model capable of predicting whether a Titanic passenger would survive based on available passenger information.
 
-Target Variable:
+### Target Variable
 
-- Survived
-    - 1 = Survived
-    - 0 = Did Not Survive
+| Value | Meaning |
+|---------|---------|
+| 1 | Survived |
+| 0 | Did Not Survive |
 
 ---
 
-## Dataset Features
+## 🖥️ Application Preview
+
+### Streamlit User Interface
+
+> Add your application screenshot below
+
+![Application UI](images/app_ui.png)
+
+---
+
+## 📊 Dataset Features
+
+### Original Features
 
 - Passenger Class (Pclass)
 - Gender (Sex)
@@ -44,7 +53,7 @@ Target Variable:
 - Fare
 - Embarked Port
 
-Engineered Features:
+### Engineered Features
 
 - FamilySize
 - IsAlone
@@ -53,22 +62,54 @@ Engineered Features:
 
 ---
 
-## Exploratory Data Analysis
+## 🔍 Exploratory Data Analysis (EDA)
 
-Key Insights:
+Key observations from the analysis:
 
-- Female passengers had significantly higher survival rates.
-- First-class passengers were more likely to survive.
-- Younger passengers had better survival chances.
-- Fare showed a positive relationship with survival.
-- Family size influenced survival probability.
+✅ Female passengers had significantly higher survival rates.
+
+✅ First-class passengers showed better survival probability.
+
+✅ Higher fare passengers were more likely to survive.
+
+✅ Younger passengers generally had higher survival chances.
+
+✅ Family size influenced survival outcomes.
 
 ---
 
-## Models Trained
+## ⚙️ Machine Learning Workflow
+
+```text
+Data Collection
+        ↓
+Data Cleaning
+        ↓
+Exploratory Data Analysis
+        ↓
+Feature Engineering
+        ↓
+Data Preprocessing
+        ↓
+Model Training
+        ↓
+Model Evaluation
+        ↓
+Model Selection
+        ↓
+Model Saving
+        ↓
+Streamlit Deployment
+```
+
+---
+
+## 🤖 Models Trained
+
+The following machine learning algorithms were evaluated:
 
 - Logistic Regression
-- K-Nearest Neighbors
+- K-Nearest Neighbors (KNN)
 - Naive Bayes
 - Decision Tree
 - Random Forest
@@ -77,23 +118,37 @@ Key Insights:
 
 ---
 
-## Final Model
+## 🏆 Final Model
 
-Support Vector Machine (SVM)
+### Support Vector Machine (SVM)
 
-Test Accuracy:
+**Test Accuracy:** `83.24%`
 
-83.24%
-
-The baseline SVM model outperformed the tuned model on the test dataset and was therefore selected as the final deployment model.
+The baseline SVM model achieved the best performance on the unseen test dataset and was selected as the final deployment model.
 
 ---
 
-## Technologies Used
+## 📈 Model Evaluation
 
-Python
+Evaluation techniques used:
 
-Libraries:
+- Accuracy Score
+- Confusion Matrix
+- Classification Report
+- Cross Validation
+- Hyperparameter Tuning
+
+This ensured robust model selection and reduced the risk of overfitting.
+
+---
+
+## 🛠️ Tech Stack
+
+### Programming Language
+
+- Python
+
+### Libraries
 
 - NumPy
 - Pandas
@@ -106,69 +161,52 @@ Libraries:
 
 ---
 
-## Project Workflow
+## 📂 Project Structure
 
-Data Collection
+```text
+titanic-survival-prediction-system/
 
-↓
-
-Data Cleaning
-
-↓
-
-Exploratory Data Analysis
-
-↓
-
-Feature Engineering
-
-↓
-
-Data Preprocessing
-
-↓
-
-Model Training
-
-↓
-
-Model Evaluation
-
-↓
-
-Model Saving
-
-↓
-
-Streamlit Application
-
-↓
-
-Deployment
+│
+├── artifacts/
+│   ├── model.pkl
+│   ├── scaler.pkl
+│   └── columns.pkl
+│
+├── notebook/
+│   └── titanic_survival_prediction.ipynb
+│
+├── images/
+│   └── app_ui.png
+│
+├── app.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
 
 ---
 
-## Installation
+## 🚀 Installation
 
-Clone Repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/yourusername/titanic-survival-prediction-system.git
 ```
 
-Move into Project Directory
+### Navigate to Project Folder
 
 ```bash
 cd titanic-survival-prediction-system
 ```
 
-Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run Streamlit Application
+### Run Application
 
 ```bash
 streamlit run app.py
@@ -176,22 +214,43 @@ streamlit run app.py
 
 ---
 
-## Screenshots
+## 🎮 How to Use
 
-Add application screenshots here after deployment.
+1. Select Passenger Class
+2. Enter Passenger Details
+3. Click **Predict Survival**
+4. View Prediction Result
+5. Check Survival Probability
 
 ---
 
-## Future Improvements
+## ✨ Features
 
-- Model Explainability
+- Interactive Streamlit UI
+- Real-Time Predictions
+- Feature Engineering Pipeline
+- Probability-Based Output
+- Saved ML Model Artifacts
+- End-to-End Deployment Ready
+
+---
+
+## 🔮 Future Improvements
+
+- SHAP Explainability
+- Docker Containerization
+- CI/CD Pipeline
+- Cloud Deployment Automation
 - Advanced Feature Engineering
-- Docker Support
-- Cloud Deployment
-- Automated ML Pipeline
 
 ---
 
-## Author
+## 👨‍💻 Author
 
-Shubham Sinha | AI Engineer
+**Shubham Sinha | AI Engineer**
+
+---
+
+## ⭐ If you found this project useful
+
+Consider giving this repository a star.
