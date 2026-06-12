@@ -7,50 +7,104 @@ import joblib
 # ==================================================
 
 st.set_page_config(
-    page_title="Titanic Survival Prediction",
+    page_title="Titanic Survival Prediction System",
     page_icon="🚢",
-    layout="centered"
+    layout="wide"
 )
+
+# ==================================================
+# CUSTOM CSS
+# ==================================================
+
+st.markdown("""
+<style>
+
+.main {
+    padding-top: 1rem;
+}
+
+.stButton > button {
+    width: 100%;
+    height: 3.2rem;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.block-container {
+    padding-top: 2rem;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # ==================================================
 # LOAD ARTIFACTS
 # ==================================================
 
-model = joblib.load("artifacts/model.pkl")
-scaler = joblib.load("artifacts/scaler.pkl")
-columns = joblib.load("artifacts/columns.pkl")
+model = joblib.load("model.pkl")
+scaler = joblib.load("scaler.pkl")
+columns = joblib.load("columns.pkl")
 
 # ==================================================
-# TITLE
+# SIDEBAR
 # ==================================================
 
-st.title("🚢 Titanic Survival Prediction System")
+st.sidebar.title("Project Information")
 
-st.markdown(
-    """
-Predict whether a passenger would survive the Titanic disaster
-based on passenger details.
-"""
+st.sidebar.success(
+    "End-to-End Machine Learning Project"
 )
 
+st.sidebar.markdown("""
+### Model Details
+
+**Model:** Support Vector Machine (SVM)
+
+**Test Accuracy:** 83.24%
+
+### Features Used
+
+- Passenger Class
+- Gender
+- Age
+- Fare
+- Family Information
+- Embarked Port
+
+### Tech Stack
+
+- Python
+- Pandas
+- Scikit-Learn
+- Streamlit
+""")
+
 # ==================================================
-# USER INPUTS
+# HERO SECTION
+# ==================================================
+
+st.markdown("""
+# 🚢 Titanic Survival Prediction System
+
+Predict whether a passenger would have survived the Titanic disaster using Machine Learning.
+
+---
+""")
+
+# ==================================================
+# INPUT SECTION
 # ==================================================
 
 st.subheader("Passenger Information")
 
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 
 with col1:
 
     pclass = st.selectbox(
         "Passenger Class",
         [1, 2, 3]
-    )
-
-    sex = st.selectbox(
-        "Gender",
-        ["male", "female"]
     )
 
     age = st.slider(
@@ -60,13 +114,25 @@ with col1:
         value=25
     )
 
+with col2:
+
+    sex = st.selectbox(
+        "Gender",
+        ["male", "female"]
+    )
+
     fare = st.number_input(
         "Fare",
         min_value=0.0,
         value=50.0
     )
 
-with col2:
+with col3:
+
+    embarked = st.selectbox(
+        "Embarked",
+        ["C", "Q", "S"]
+    )
 
     sibsp = st.number_input(
         "Siblings / Spouse",
@@ -82,11 +148,6 @@ with col2:
         value=0
     )
 
-    embarked = st.selectbox(
-        "Embarked",
-        ["C", "Q", "S"]
-    )
-
 # ==================================================
 # FEATURE ENGINEERING
 # ==================================================
@@ -95,7 +156,7 @@ family_size = sibsp + parch + 1
 
 is_alone = int(family_size == 1)
 
-# AgeGroup
+# Age Group
 
 if age <= 12:
     age_group = "Child"
@@ -112,7 +173,7 @@ elif age <= 60:
 else:
     age_group = "Senior"
 
-# FareGroup
+# Fare Group
 
 if fare <= 8:
     fare_group = "Low"
@@ -125,6 +186,37 @@ elif fare <= 32:
 
 else:
     fare_group = "Premium"
+
+# ==================================================
+# PASSENGER SUMMARY
+# ==================================================
+
+st.markdown("### Passenger Summary")
+
+summary_df = pd.DataFrame({
+    "Feature": [
+        "Passenger Class",
+        "Gender",
+        "Age",
+        "Fare",
+        "Family Size",
+        "Embarked"
+    ],
+    "Value": [
+        pclass,
+        sex,
+        age,
+        fare,
+        family_size,
+        embarked
+    ]
+})
+
+st.dataframe(
+    summary_df,
+    use_container_width=True,
+    hide_index=True
+)
 
 # ==================================================
 # CREATE INPUT DATAFRAME
@@ -153,14 +245,9 @@ input_df = pd.get_dummies(
     drop_first=True
 )
 
-# Add missing columns
-
 for col in columns:
-
     if col not in input_df.columns:
         input_df[col] = 0
-
-# Ensure same order
 
 input_df = input_df[columns]
 
@@ -168,9 +255,7 @@ input_df = input_df[columns]
 # SCALE
 # ==================================================
 
-input_scaled = scaler.transform(
-    input_df
-)
+input_scaled = scaler.transform(input_df)
 
 # ==================================================
 # PREDICTION
@@ -178,20 +263,22 @@ input_scaled = scaler.transform(
 
 if st.button("Predict Survival"):
 
-    prediction = model.predict(
-        input_scaled
-    )[0]
+    with st.spinner("Analyzing passenger information..."):
 
-    probability = model.predict_proba(
-        input_scaled
-    )[0][1]
+        prediction = model.predict(
+            input_scaled
+        )[0]
+
+        probability = model.predict_proba(
+            input_scaled
+        )[0][1]
 
     st.divider()
 
     if prediction == 1:
 
         st.success(
-            f"✅ Passenger Likely Survived"
+            "✅ Passenger Likely Survived"
         )
 
         st.metric(
@@ -199,10 +286,12 @@ if st.button("Predict Survival"):
             f"{probability:.2%}"
         )
 
+        st.progress(float(probability))
+
     else:
 
         st.error(
-            f"❌ Passenger Likely Did Not Survive"
+            "❌ Passenger Likely Did Not Survive"
         )
 
         st.metric(
@@ -210,12 +299,30 @@ if st.button("Predict Survival"):
             f"{(1 - probability):.2%}"
         )
 
+        st.progress(float(1 - probability))
+
 # ==================================================
 # FOOTER
 # ==================================================
 
 st.markdown("---")
 
-st.caption(
-    "Titanic Survival Prediction System | Machine Learning Project"
-)
+st.markdown("""
+### About This Project
+
+This application predicts whether a passenger would survive the Titanic disaster using Machine Learning.
+
+**Workflow**
+
+- Data Cleaning
+- Exploratory Data Analysis
+- Feature Engineering
+- Model Training
+- Cross Validation
+- Hyperparameter Tuning
+- Streamlit Deployment
+
+**Final Model:** Support Vector Machine (SVM)
+
+**Dataset:** Titanic Dataset
+""")
