@@ -37,7 +37,7 @@ Build a machine learning model capable of predicting whether a Titanic passenger
 
 > Add your application screenshot below
 
-![Application UI](images/app_ui.png)
+![Application UI](images/ui.png)
 
 ---
 
@@ -167,13 +167,11 @@ This ensured robust model selection and reduced the risk of overfitting.
 titanic-survival-prediction-system/
 
 │
-├── artifacts/
-│   ├── model.pkl
-│   ├── scaler.pkl
-│   └── columns.pkl
+│── model.pkl
+│── scaler.pkl
+│── columns.pkl
 │
-├── notebook/
-│   └── titanic_survival_prediction.ipynb
+├── titanic_survival_prediction.ipynb
 │
 ├── images/
 │   └── app_ui.png
